@@ -7,7 +7,83 @@
     <meta name="description" content="功能完整的線上分數兌換表管理系統，支援自訂分數區間、物品管理、圖片上傳、列印功能。適合學校、機構、公司使用，可在GitHub Pages上完全運行。">
     <meta name="keywords" content="分數兌換表,積分管理系統,學校管理工具,獎勵兌換系統,線上積分,分數管理,物品兌換,積分兌換,學校積分系統,機構管理工具">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><text font-size='90' y='.9em'>🏆</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><text font-size="90" y=".9em">🏆</text></svg>">
+    <style>
+        @media print {
+            /* 隱藏不需要列印的元素 */
+            .header,
+            footer,
+            .no-print,
+            .control-panel,
+            .modal,
+            .toast,
+            .floating-element,
+            .mcafee-notice,
+            .floating-bar {
+                display: none !important;
+            }
+            
+            /* 隱藏頁首和頁尾 */
+            @page {
+                margin: 1cm;
+            }
+            
+            /* 調整主要內容區域 */
+            .main-content,
+            .print-content {
+                font-size: 14pt !important;
+                line-height: 1.6 !important;
+                width: 100% !important;
+                max-width: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            /* 調整表格樣式 */
+            table {
+                font-size: 12pt !important;
+                border-collapse: collapse !important;
+                width: 100% !important;
+                margin: 10pt 0 !important;
+            }
+            
+            th, td {
+                font-size: 12pt !important;
+                padding: 8pt !important;
+                border: 1pt solid #000 !important;
+            }
+            
+            /* 調整圖片大小 */
+            img {
+                max-width: 100% !important;
+                height: auto !important;
+                page-break-inside: avoid !important;
+            }
+            
+            /* 調整標題 */
+            h1, h2, h3, h4, h5, h6 {
+                font-size: 16pt !important;
+                margin: 10pt 0 !important;
+                page-break-after: avoid !important;
+            }
+            
+            /* 內容區域字體放大 */
+            .app-container,
+            .container,
+            .score-range,
+            .item-card,
+            .print-header {
+                font-size: 13pt !important;
+            }
+            
+            /* 避免頁面中間斷開 */
+            .score-range,
+            .item-card {
+                page-break-inside: avoid !important;
+                margin-bottom: 15pt !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -123,7 +199,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn--outline" id="rangeCancel">取消</button>
-                <button type="submit" form="rangeForm" class="btn btn--primary">確定</button>
+                <button type="submit" class="btn btn--primary" form="rangeForm">確定</button>
             </div>
         </div>
     </div>
@@ -144,11 +220,11 @@
                     </div>
                     <div class="form-group">
                         <label for="itemPoints">所需分數：</label>
-                        <input type="number" id="itemPoints" class="form-input" min="0" placeholder="輸入所需分數" required>
+                        <input type="number" id="itemPoints" class="form-input" placeholder="輸入所需分數" min="0" required>
                     </div>
                     <div class="form-group">
                         <label for="itemDescription">物品描述：</label>
-                        <textarea id="itemDescription" class="form-input" rows="3" placeholder="可選填物品描述"></textarea>
+                        <textarea id="itemDescription" class="form-input" placeholder="可選填物品描述" rows="3"></textarea>
                     </div>
                     <div class="form-group">
                         <label>物品圖片：</label>
@@ -167,7 +243,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn--outline" id="itemCancel">取消</button>
-                <button type="submit" form="itemForm" class="btn btn--primary">確定</button>
+                <button type="submit" class="btn btn--primary" form="itemForm">確定</button>
             </div>
         </div>
     </div>
