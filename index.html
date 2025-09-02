@@ -7,7 +7,7 @@
     <meta name="description" content="功能完整的線上分數兌換表管理系統，支援自訂分數區間、物品管理、圖片上傳、列印功能。適合學校、機構、公司使用，可在GitHub Pages上完全運行。">
     <meta name="keywords" content="分數兌換表,積分管理系統,學校管理工具,獎勵兌換系統,線上積分,分數管理,物品兌換,積分兌換,學校積分系統,機構管理工具">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><text font-size="90" y=".9em">🏆</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg viewbox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><text font-size='90' y='.9em'>🏆</text></svg>">
     <style>
         @media print {
             /* 隱藏不需要列印的元素 */
@@ -53,11 +53,14 @@
                 border: 1pt solid #000 !important;
             }
             
-            /* 調整圖片大小 */
+            /* 調整圖片大小 - 提升為大圖 */
             img {
-                max-width: 100% !important;
+                max-width: 240px !important;
+                max-height: 240px !important;
+                width: auto !important;
                 height: auto !important;
                 page-break-inside: avoid !important;
+                object-fit: contain !important;
             }
             
             /* 調整標題 */
@@ -83,6 +86,18 @@
                 margin-bottom: 15pt !important;
             }
         }
+        
+        /* 桌面版圖片大小限制提升 */
+        .item-card img,
+        .image-preview img {
+            max-width: 240px;
+            max-height: 240px;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -90,7 +105,7 @@
         <!-- Header -->
         <header class="header no-print">
             <div class="container">
-                <h1>🏆 線上分數兌換表管理系統</h1>
+                <h1 class="header-title">🏆 線上分數兌換表管理系統</h1>
                 <div class="header-actions">
                     <button class="btn btn--primary" id="addRangeBtn">
                         📝 新增分數區間
@@ -118,7 +133,7 @@
                 <!-- Control Panel -->
                 <div class="control-panel no-print">
                     <div class="panel-section">
-                        <h2>系統設定</h2>
+                        <h2 class="panel-title">系統設定</h2>
                         <div class="settings-grid">
                             <div class="setting-item">
                                 <label for="systemTitle">系統標題：</label>
@@ -126,7 +141,7 @@
                             </div>
                             <div class="setting-item">
                                 <label for="organizationName">機構名稱：</label>
-                                <input type="text" id="organizationName" class="form-input" placeholder="可選填" value="">
+                                <input type="text" id="organizationName" class="form-input" value="" placeholder="可選填">
                             </div>
                         </div>
                     </div>
@@ -140,8 +155,9 @@
                 <!-- Empty State -->
                 <div class="empty-state" id="emptyState">
                     <div class="empty-state-content">
-                        <h2>🎯 開始建立您的分數兌換表</h2>
-                        <p>點擊「新增分數區間」來建立第一個分數範圍，然後添加物品！</p>
+                        <div class="empty-icon">🎯</div>
+                        <h3 class="empty-title">開始建立您的分數兌換表</h3>
+                        <p class="empty-description">點擊「新增分數區間」來建立第一個分數範圍，然後添加物品！</p>
                     </div>
                 </div>
             </div>
@@ -199,7 +215,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn--outline" id="rangeCancel">取消</button>
-                <button type="submit" class="btn btn--primary" form="rangeForm">確定</button>
+                <button type="submit" form="rangeForm" class="btn btn--primary">確定</button>
             </div>
         </div>
     </div>
@@ -220,17 +236,18 @@
                     </div>
                     <div class="form-group">
                         <label for="itemPoints">所需分數：</label>
-                        <input type="number" id="itemPoints" class="form-input" placeholder="輸入所需分數" min="0" required>
+                        <input type="number" id="itemPoints" class="form-input" min="0" placeholder="輸入所需分數" required>
                     </div>
                     <div class="form-group">
                         <label for="itemDescription">物品描述：</label>
-                        <textarea id="itemDescription" class="form-input" placeholder="可選填物品描述" rows="3"></textarea>
+                        <textarea id="itemDescription" class="form-input" rows="3" placeholder="可選填物品描述"></textarea>
                     </div>
                     <div class="form-group">
                         <label>物品圖片：</label>
                         <div class="image-upload" id="imageUpload">
                             <div class="upload-placeholder">
-                                🖼️ 點擊上傳圖片或拖拽到此處
+                                <span class="upload-icon">🖼️</span>
+                                <span class="upload-text">點擊上傳圖片或拖拽到此處</span>
                                 <input type="file" id="itemImage" accept="image/*" style="display: none;">
                             </div>
                         </div>
@@ -243,7 +260,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn--outline" id="itemCancel">取消</button>
-                <button type="submit" class="btn btn--primary" form="itemForm">確定</button>
+                <button type="submit" form="itemForm" class="btn btn--primary">確定</button>
             </div>
         </div>
     </div>
